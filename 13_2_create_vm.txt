@@ -22,5 +22,11 @@ Name: (Default)
 Size: 30 GB
 
 
+###install oralce Linux 7 ####
+Base Environment > Server with GUI
+Add-Ons for Selected Environment > Compatibility Libraries
+Add-Ons for Selected Environment > Development Tools
+
+
 
 
