@@ -6,8 +6,9 @@ $ usermod -G oinstall,dba,vboxsf oracle
 
 --run installer
 
-$ cd /media/database
-$ ./runInstaller
+$ cd $ORACLE_HOME
+unzip -oq  LINUX.X64_193000_db_home.zip
+./runInstaller
 
 --Configure Security Updates
 Uncheck "I wish to receive security updates via My Oracle Support" option
