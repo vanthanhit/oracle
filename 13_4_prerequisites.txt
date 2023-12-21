@@ -1,73 +1,67 @@
 
 --update linux kernel
 
-$ yum update -y
+$ yum update -y & yum upgrade - y
 
+--stop and disable firewall 
 
---install guest additons
+systemctl stop firewalld
+systemctl disable firewalld
+--Set secure Linux to permissive by editing the "/etc/selinux/config" file
+sed -i "s/=enforcing/=disabled/g" /etc/sysconfig/selinux
 
---shutdown vm
-
---enable shared clipboard
-
-
---create shared folder
-
-$ su root
-$ cd /media
-$ ls
-
+--set hostname
+hostnamectl set-hostname primary.localdomain
 
 --edit "/etc/hosts" file
+vim /etc/hosts
 
 10.0.2.15  primary.localdomain  primary
 
 
 --Perform basic prerequisites
 
-$ yum install oracle-database-server-12cR2-preinstall -y
+$ yum install -y oracle-database-preinstall-19c
 
 
 --set the password for the "oracle" user.
 
 $ passwd oracle
 
-
---Set secure Linux to permissive by editing the "/etc/selinux/config" file
-SELINUX=permissive
-
-
---stop and disable firewall 
-
-$ systemctl stop firewalld
-$ systemctl disable firewalld
-
-
 --create the directories in which the Oracle software will be installed.
 
-$ mkdir -p /u01/app/oracle/product/12.2.0.1/db_1
-$ chown -R oracle:oinstall /u01
-$ chmod -R 775 /u01
+mkdir -p /u01/app/oracle/product/19.0.0/dbhome_1
+mkdir -p /u02/oradata
+chown -R oracle:oinstall /u01 /u02
+chmod -R 775 /u01 /u02
 
 
 --exit to oracle user
 --edit .bash_profile file with adding these:
-
+vim ~/.bash_profile
 export TMP=/tmp
 export TMPDIR=$TMP
 
-export ORACLE_HOSTNAME=primary.localdomain
+export ORACLE_HOSTNAME=primary.localdomai
 export ORACLE_UNQNAME=ORCLPR
 export ORACLE_BASE=/u01/app/oracle
-export GRID_HOME=/u01/app/12.2.0.1/grid
-export DB_HOME=$ORACLE_BASE/product/12.2.0.1/db_1
-export ORACLE_HOME=$DB_HOME
+export GRID_HOME=/u01/app/19.0.0/grid
+export ORACLE_HOME=$ORACLE_BASE/product/19.0.0/dbhome_1
+export ORA_INVENTORY=/u01/app/oraInventory
 export ORACLE_SID=orcl
-export ORACLE_TERM=xterm
-export BASE_PATH=/usr/sbin:$PATH
-export PATH=$ORACLE_HOME/bin:$BASE_PATH
+export PDB_NAME=pdb1
+export DATA_DIR=/u02/oradata
+
 
 export LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib
-export CLASSPATH=$ORACLE_HOME/JRE:$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib
+export CLASSPATH=$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib
+
+export  PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin:$ORACLE_HOME/bin
+
+
+--- Apply source bash
+source ~/.bash_profile
+
+
 
 
