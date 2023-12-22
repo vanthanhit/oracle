@@ -347,11 +347,11 @@ where name in ('db_name','db_unique_name','log_archive_config',
 
 
 --Create standby logfiles:
-SQL> ALTER DATABASE ADD STANDBY LOGFILE '/u01/app/oracle/oradata/orcl/redostb01.log' size 209715200;
+SQL> ALTER DATABASE ADD STANDBY LOGFILE '/u01/app/oracle/oradata/ORCL/redostb01.log' size 209715200;
 
-SQL> ALTER DATABASE ADD STANDBY LOGFILE '/u01/app/oracle/oradata/orcl/redostb02.log' size 209715200;
+SQL> ALTER DATABASE ADD STANDBY LOGFILE '/u01/app/oracle/oradata/ORCL/redostb02.log' size 209715200;
 
-SQL> ALTER DATABASE ADD STANDBY LOGFILE '/u01/app/oracle/oradata/orcl/redostb03.log' size 209715200;
+SQL> ALTER DATABASE ADD STANDBY LOGFILE '/u01/app/oracle/oradata/ORCL/redostb03.log' size 209715200;
 
 
 -- on both servers
