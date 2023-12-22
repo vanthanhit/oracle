@@ -1,12 +1,33 @@
 
 
---OPATCH lsinventory
+-----OPATCH lsinventory------
 
-$ cd /u01/app/oracle/product/12.2.0.1/db_1/OPatch
+cd /u01/app/oracle/product/19.0.0/dbhome_1/OPatch
 
-$./opatch lsinventory 
+./opatch lsinventory 
+--coppy patch to DB and unzip
+unzip -oq patch_19.13_db_linux_patch_33192793_Linux-x86-64.zip
+ ls -ltr
+--Check Conflict
+/u01/app/oracle/product/19.0.0/dbhome_1/OPatch/opatch prereq CheckConflictAgainstOHWithDetail -ph /u01/app/backup/33192793/
+-- Shutdown Database
+SHUT IMMEDIATE;
 
-$ ./opatch lsinventory > /home/oracle/opatch.txt
+--Stop LISTENER--
+ps -ef | grep tns
+lsnrctl stop
+
+---Backup Oracle Home / Inventory before patching---
+------Apply Patch-----
+[oracle@primary backup]$ cd 33192793/
+[oracle@primary 33192793]$ pwd
+/u01/app/backup/33192793
+/u01/app/oracle/product/19.0.0/dbhome_1/OPatch/opatch apply -oh /u01/app/oracle/product/19.0.0/dbhome_1 -local
+
+--Check patch Apply--
+/u01/app/oracle/product/19.0.0/dbhome_1/OPatch/opatch lsinv -oh /u01/app/oracle/product/19.0.0/dbhome_1
+-Patch description:  "Database Release Update : 19.13.0.0.211019 (33192793)"-
+./opatch lsinventory > /home/oracle/opatch.txt
 
 --AWR (Automatic Workload Repository) Report
 
