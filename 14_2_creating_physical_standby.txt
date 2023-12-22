@@ -126,12 +126,12 @@ SID_LIST_LISTENER =
  (SID_LIST =
   (SID_DESC =
    (GLOBAL_DBNAME = orclprm)
-   (ORACLE_HOME = /u01/app/oracle/product/12.2.0.1/db_1)
+   (ORACLE_HOME = /u01/app/oracle/product/19.0.0/dbhome_1)
    (SID_NAME = orcl)
  )
   (SID_DESC =
    (GLOBAL_DBNAME = orclprm_dgmgrl)
-   (ORACLE_HOME = /u01/app/oracle/product/12.2.0.1/db_1)
+   (ORACLE_HOME = /u01/app/oracle/product/19.0.0/dbhome_1)
    (SID_NAME = orcl)
   )
 )
@@ -197,19 +197,18 @@ SQL> create pfile='/tmp/initorcl.ora' from spfile;
 --Copy files orapw file and initorcl.ora to server standby
 $ scp /tmp/initorcl.ora standby:/tmp/
 
-$ scp /u01/app/oracle/product/12.2.0.1/db_1/dbs/orapworcl standby:/u01/app/oracle/product/12.2.0.1/db_1/dbs/
+$ scp /u01/app/oracle/product/19.0.0/dbhome_1/dbs/orapworcl standby:/u01/app/oracle/product/19.0.0/dbhome_1/dbs/
 
 
 --standby server
-$ mkdir -p /u01/app/oracle/admin/orcl
+ mkdir -p /u01/app/oracle/admin/ORCL
 
-$ mkdir -p /u01/app/oracle/admin/orcl/adump
+ mkdir -p /u01/app/oracle/admin/orcl/adump
 
-$ mkdir -p /u01/app/oracle/fast_recovery_area
+ mkdir -p /u01/app/oracle/fast_recovery_area
 
-$ mkdir -p /u01/app/oracle/fast_recovery_area/orcl
-
-$ mkdir -p /u01/app/oracle/oradata/orcl
+ mkdir -p /u01/app/oracle/fast_recovery_area/ORCL
+mkdir -p /u01/app/oracle/fast_recovery_area/ORCL/controlfile
 
 $ mkdir -p /u01/app/oracle/oradata/orcl/pdbseed
 
@@ -225,7 +224,7 @@ $ vi /tmp/initorcl.ora
 *.log_archive_dest_1='LOCATION=USE_DB_RECOVERY_FILE_DEST VALID_FOR=(ALL_LOGFILES,ALL_ROLES) DB_UNIQUE_NAME=orclstb'
 
 --Create an entry in the /etc/oratab:
-orcl:/u01/app/oracle/product/12.2.0.1/db_1:N
+orcl:/u01/app/oracle/product/19.0.0/dbhome_1:N
 
 
 --Network configuration
@@ -240,12 +239,12 @@ SID_LIST_LISTENER =
  (SID_LIST =
   (SID_DESC =
    (GLOBAL_DBNAME = orclstb)
-   (ORACLE_HOME = /u01/app/oracle/product/12.2.0.1/db_1)
+   (ORACLE_HOME = /u01/app/oracle/product/19.0.0/dbhome_1)
    (SID_NAME = orcl)
   )
   (SID_DESC =
    (GLOBAL_DBNAME = orclstb_dgmgrl)
-   (ORACLE_HOME = /u01/app/oracle/product/12.2.0.1/db_1)
+   (ORACLE_HOME = /u01/app/oracle/product/19.0.0/dbhome_1)
    (SID_NAME = orcl)
   )
 )
