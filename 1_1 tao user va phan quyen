@@ -1,0 +1,22 @@
+---user sys
+create user thanh identified by thanh;
+grant connect to thanh;
+grant resource to thanh;
+GRANT UNLIMITED TABLESPACE TO thanh;
+
+---chuyen sesion sang PDB
+alter session set container=NGERP;
+---chuyen session sang user khac
+alter session set current_schema = thanh;
+
+
+
+--user tao table
+CREATE TABLE nhan_vien (
+    ma_nhan_vien NUMBER PRIMARY KEY,
+    ten_nhan_vien VARCHAR2(50),
+    ngay_sinh DATE,
+    luong NUMBER
+);
+INSERT INTO nhan_vien (ma_nhan_vien, ten_nhan_vien, ngay_sinh, luong)
+VALUES (1, 'Nguyen Van A', TO_DATE('1990-01-01', 'YYYY-MM-DD'), 50000);
