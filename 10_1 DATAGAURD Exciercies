@@ -1,3 +1,49 @@
 10-1 DATAGAURD Exciercies
 
 --- Stanby mất mạng , mất đồng bộ với prim
+--Check DATAGUARD---
+There are multiple ways to stop and start the log Apply or MRP. 
+
+Using SQL: 
+
+SQL> alter database recover managed standby database cancel;    #stop
+SQL> alter database recover managed standby database using current logfile disconnect;  #start
+
+
+Using DG Broker:
+
+DGMGRL> EDIT DATABASE testdg2 SET STATE='APPLY-OFF';   #stop
+DGMGRL> EDIT DATABASE testdg2 SET STATE='APPLY-ON';     #start
+
+DGMGRL> show configuration
+
+Configuration - orcl
+
+  Protection Mode: MaxPerformance
+  Members:
+  orclprm - Primary database
+    orclstb - Physical standby database
+
+Fast-Start Failover:  Disabled
+
+Configuration Status:
+SUCCESS   (status updated 44 seconds ago)
+DGMGRL> show database verbose orclprm;
+DGMGRL> show database verbose orclstb;
+---check archive log shipping --Archivelog  Status in a Database
+SQL> archive log list
+SQL> select process,status,sequence# from v$managed_standby;   #on stanby 
+MRP0      APPLYING_LOG         20       # row applying archive 
+-check storage archive log
+SQL> show parameter recovery   # get desc archive log atfer check file archive
+
+---- tao bug , díable netwwork card on stanby, sau do tao logfile, sau do kiem tra tren primary va stanby
+alter system switch logfile;
+
+
+
+
+
+
+
+
