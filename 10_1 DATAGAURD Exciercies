@@ -33,7 +33,8 @@ DGMGRL> show database verbose orclstb;
 ---check archive log shipping --Archivelog  Status in a Database
 SQL> archive log list
 SQL> select process,status,sequence# from v$managed_standby;   #on stanby 
-MRP0      APPLYING_LOG         20       # row applying archive 
+MRP0      APPLYING_LOG         20       # row applying archive \
+SELECT NAME, VALUE FROM V$DATAGUARD_STATS WHERE NAME='apply lag';   #check GAP on stanby
 -check storage archive log
 SQL> show parameter recovery   # get desc archive log atfer check file archive
 
