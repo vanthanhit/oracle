@@ -14,9 +14,9 @@ SQL> ALTER DATABASE SWITCHOVER TO orclstb VERIFY;
 --check alert log
 $ cd /u01/app/oracle/diag/rdbms/orclprm/orcl/trace
 
-$ tail -200 alert_orcl.log 
+$ tail -200f alert_orcl.log 
 
---to fix warning on standby
+--to fix warning on standby (run on standby)
 SQL> alter system set log_archive_dest_2='service="primary", db_unique_name="orclprm", valid_for=(online_logfile,all_roles)' scope=both;
 
 
